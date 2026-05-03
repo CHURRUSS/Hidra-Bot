@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1777850356,
+	"version": 1777850855,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -12,6 +12,7 @@
 		"images/subnucleoshidra-sheet0.png",
 		"images/background-sheet0.png",
 		"images/iconaddmucisas-sheet0.png",
+		"images/btnenviar-sheet0.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",

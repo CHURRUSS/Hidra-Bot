@@ -26264,7 +26264,6 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.AJAX.prototype.cnds.OnComplete,
 	cr.plugins_.Touch.prototype.cnds.IsTouchingObject,
 	cr.plugins_.TextBox.prototype.exps.Text,
-	cr.plugins_.AJAX.prototype.acts.SetHeader,
 	cr.plugins_.AJAX.prototype.acts.Post,
 	cr.plugins_.TextBox.prototype.acts.SetText,
 	cr.plugins_.AJAX.prototype.exps.LastData,

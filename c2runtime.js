@@ -26260,7 +26260,6 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Sprite.prototype.exps.X,
 	cr.plugins_.Sprite.prototype.exps.Y,
 	cr.system_object.prototype.cnds.IsGroupActive,
-	cr.plugins_.AJAX.prototype.acts.RequestFile,
 	cr.plugins_.AJAX.prototype.cnds.OnComplete,
 	cr.plugins_.Touch.prototype.cnds.IsTouchingObject,
 	cr.plugins_.TextBox.prototype.exps.Text,

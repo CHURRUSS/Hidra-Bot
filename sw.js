@@ -1,0 +1,1 @@
+const CACHE='hidra-mobile-v1';self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['./','./index.html','./app.js','./style.css','./manifest.webmanifest','./icon.svg']))));self.addEventListener('fetch',e=>{if(e.request.method!=='GET'||e.request.url.includes('/mobile/api/'))return;e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)))});

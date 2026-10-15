@@ -17,3 +17,12 @@
 @keyframes desktop-breathe{0%,100%{transform:scale(.97);opacity:.75}50%{transform:scale(1.04);opacity:1}}
 @media(max-height:740px){.orb-desktop{width:min(100%,225px)!important}}
 @media(prefers-reduced-motion:reduce){.desktop-layer{animation:none!important}}
+
+/* v2.3: limita a cena e impede PNGs absolutos de expandirem a viewport */
+html,body{width:100%;max-width:100%;overflow-x:clip}
+.app{width:100%;max-width:560px;min-width:0;overflow:hidden}
+.hero{min-width:0;max-width:100%;isolation:isolate}
+.orb.orb-desktop{position:relative!important;display:block!important;width:min(78vw,300px)!important;height:min(78vw,300px)!important;max-width:300px!important;max-height:300px!important;aspect-ratio:1/1!important;overflow:hidden!important;contain:layout paint;isolation:isolate;filter:none;margin:12px auto!important}
+.orb.orb-desktop .desktop-layer{position:absolute!important;inset:0!important;display:block!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;transform-origin:center center!important;pointer-events:none}
+.orb.orb-desktop .desktop-aura{position:absolute!important;inset:10%!important}
+@media(max-height:740px){.orb.orb-desktop{width:min(62vw,225px)!important;height:min(62vw,225px)!important}}

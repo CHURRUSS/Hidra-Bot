@@ -2,21 +2,21 @@
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#061522"><meta name="description" content="Terminal holográfico HIDRA Mobile">
 <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="logo-desktop.png" type="image/png">
-<link rel="stylesheet" href="style.css"><title>HIDRA Mobile 2.2 — Núcleo Desktop</title></head>
+<link rel="stylesheet" href="style.css?v=5"><title>HIDRA Mobile 2.3 — Núcleo Corrigido</title></head>
 <body><main class="app">
 <header class="top"><div><div class="desktop-brand"><img src="logo-desktop.png" class="desktop-logo" alt="Logo original HIDRA Desktop"><div><div class="brand">HIDRA <small>2.0</small></div><div class="subbrand">ASSISTENTE INTELIGENTE</div></div></div></div><span id="connection" class="status">DESCONECTADA</span></header>
 <section class="hero" aria-label="Núcleo da HIDRA">
 <div class="hero-top"><span><i class="led"></i> SISTEMA OPERACIONAL</span><span class="hero-id">HIDRA / CORE_02</span></div>
-<div class="orb orb-desktop" role="img" aria-label="Núcleo holográfico original da HIDRA Desktop">
-<div class="desktop-aura"></div>
-<img class="desktop-layer layer-pulse" src="pulso-hidra.png" alt="" draggable="false">
-<img class="desktop-layer layer-particles" src="particulas-hidra.png" alt="" draggable="false">
-<img class="desktop-layer layer-radar" src="radar-hidra.png" alt="" draggable="false">
-<img class="desktop-layer layer-outer" src="anel-externo.png" alt="" draggable="false">
-<img class="desktop-layer layer-orbits" src="orbitas-hidra.png" alt="" draggable="false">
-<img class="desktop-layer layer-inner" src="anel-interno.png" alt="" draggable="false">
-<img class="desktop-layer layer-glow" src="brilho-nucleo.png" alt="" draggable="false">
-<img class="desktop-layer layer-core" src="nucleo-hidra.png" alt="" draggable="false">
+<div class="orb orb-desktop" style="position:relative;width:min(78vw,300px);height:min(78vw,300px);aspect-ratio:1/1;max-width:300px;max-height:300px;margin:12px auto;overflow:hidden;isolation:isolate;contain:layout paint;" role="img" aria-label="Núcleo holográfico original da HIDRA Desktop">
+<div class="desktop-aura" style="position:absolute;inset:10%;border-radius:50%;"></div>
+<img class="desktop-layer layer-pulse" style="position:absolute;inset:0;display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;transform-origin:center center;pointer-events:none;" src="pulso-hidra.png" alt="" draggable="false">
+<img class="desktop-layer layer-particles" style="position:absolute;inset:0;display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;transform-origin:center center;pointer-events:none;" src="particulas-hidra.png" alt="" draggable="false">
+<img class="desktop-layer layer-radar" style="position:absolute;inset:0;display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;transform-origin:center center;pointer-events:none;" src="radar-hidra.png" alt="" draggable="false">
+<img class="desktop-layer layer-outer" style="position:absolute;inset:0;display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;transform-origin:center center;pointer-events:none;" src="anel-externo.png" alt="" draggable="false">
+<img class="desktop-layer layer-orbits" style="position:absolute;inset:0;display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;transform-origin:center center;pointer-events:none;" src="orbitas-hidra.png" alt="" draggable="false">
+<img class="desktop-layer layer-inner" style="position:absolute;inset:0;display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;transform-origin:center center;pointer-events:none;" src="anel-interno.png" alt="" draggable="false">
+<img class="desktop-layer layer-glow" style="position:absolute;inset:0;display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;transform-origin:center center;pointer-events:none;" src="brilho-nucleo.png" alt="" draggable="false">
+<img class="desktop-layer layer-core" style="position:absolute;inset:0;display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;transform-origin:center center;pointer-events:none;" src="nucleo-hidra.png" alt="" draggable="false">
 </div>
 <div id="hint" class="hint">Configure a conexão para começar.</div><div class="hero-sub">NÚCLEO DE COMUNICAÇÃO ATIVO</div></section>
 <section id="home" class="screen active">
@@ -48,4 +48,4 @@
 <label>Chave de pareamento<input id="token" type="password" placeholder="Chave exibida no PC"></label>
 <button id="save" type="button">Salvar e conectar</button>
 <p class="tip">O GitHub Pages hospeda somente a interface. Para acessar a HIDRA do PC, configure um servidor HTTPS compatível com a API Mobile. Nunca publique sua chave no repositório.</p></section>
-</main><script src="app.js" defer></script></body></html>
+</main><script src="app.js?v=5" defer></script></body></html>

@@ -57,3 +57,8 @@ html,body{width:100%;max-width:100%;overflow-x:clip}
 @keyframes neural-breathe{0%,100%{opacity:.83;text-shadow:0 0 8px #45bce6,0 0 19px #2289af55}50%{opacity:1;text-shadow:0 0 11px #67e4ff,0 0 25px #2289af99}}
 @media(max-height:730px){.neural-core{width:min(61vw,210px);height:min(61vw,210px)}}
 @media(prefers-reduced-motion:reduce){.neural-h{animation:none}}
+
+/* PWA 2.6: evitar zoom e arraste lateral sem bloquear scroll vertical */
+html,body{max-width:100%;overflow-x:hidden;overscroll-behavior-x:none;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html{touch-action:pan-y}
+.neural-core{touch-action:none}

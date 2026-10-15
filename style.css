@@ -62,3 +62,33 @@ html,body{width:100%;max-width:100%;overflow-x:clip}
 html,body{max-width:100%;overflow-x:hidden;overscroll-behavior-x:none;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 html{touch-action:pan-y}
 .neural-core{touch-action:none}
+
+/* HIDRA GEO: independent local GPS panel */
+.gps-panel[hidden]{display:none!important}
+.gps-panel{position:fixed;inset:0;z-index:200;background:linear-gradient(145deg,#061724,#071f31 62%,#04111d);overflow-y:auto;overscroll-behavior:contain;padding:calc(env(safe-area-inset-top) + 16px) 16px calc(env(safe-area-inset-bottom) + 24px);color:#d4f7ff;box-sizing:border-box}
+body.gps-open{overflow:hidden}
+.gps-head{display:flex;justify-content:space-between;align-items:center;margin:0 0 12px}
+.gps-head h2{margin:4px 0 0;font-size:22px;letter-spacing:3px;color:#d7f8ff}
+.gps-kicker{font-size:10px;letter-spacing:2px;color:#4dd3e8;font-weight:700}
+.gps-close{background:#123247;border:1px solid #2d7690;border-radius:10px;color:#d5faff;padding:10px 15px;font-size:19px}
+.gps-status{padding:10px 12px;margin-bottom:12px;border:1px solid #1a5a73;border-radius:9px;background:#082639;color:#81d9e8;font-size:12px}
+.gps-map-shell{position:relative;height:min(48vh,390px);min-height:250px;border:1px solid #39a9c5;border-radius:16px;overflow:hidden;box-shadow:0 0 20px #0c8bb233,inset 0 0 24px #08a7c322;background:#0b2738;isolation:isolate}
+.gps-map{width:100%;height:100%;z-index:0}
+.gps-grid{position:absolute;inset:0;pointer-events:none;z-index:400;background:repeating-linear-gradient(0deg,transparent 0,transparent 35px,#37e2ff10 36px),repeating-linear-gradient(90deg,transparent 0,transparent 35px,#37e2ff10 36px);box-shadow:inset 0 0 30px #00121b}
+.gps-corners{position:absolute;inset:8px;z-index:401;pointer-events:none;border:1px solid #40d7f944;border-radius:9px}
+.gps-tag{position:absolute;z-index:402;top:16px;left:16px;background:#061c2bd9;border:1px solid #258aa6;border-radius:5px;padding:6px 8px;color:#80e8f9;font-size:10px;letter-spacing:1px;pointer-events:none}
+.gps-address{margin-top:14px;background:#09283a;border:1px solid #1b5e77;border-radius:12px;padding:14px}
+.gps-address div{margin:7px 0;font-size:15px;font-weight:600;line-height:1.45}
+.gps-address small{color:#83b6c4;font-size:11px}
+.gps-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 16px}
+.gps-actions button,.gps-chips button,.gps-result button{background:#103d53;color:#b9f3ff;border:1px solid #2984a1;border-radius:9px;padding:12px 9px;font-size:12px;font-weight:650}
+.gps-categories{margin:12px 0}
+.gps-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
+.gps-chips button{padding:10px}
+.gps-results{display:grid;gap:8px;margin-top:12px}
+.gps-result{display:grid;grid-template-columns:1fr auto;gap:5px 10px;background:#0b2a3c;border:1px solid #1b5870;border-radius:10px;padding:12px}
+.gps-result strong{font-size:13px;grid-column:1/2}
+.gps-result span{font-size:11px;color:#90bfcc;grid-column:1/2}
+.gps-result button{grid-column:2;grid-row:1/3;padding:6px 9px;align-self:center}
+.gps-foot{color:#75a7b8;font-size:10px;margin-top:18px;line-height:1.5}
+.gps-panel button{touch-action:manipulation}

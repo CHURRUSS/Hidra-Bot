@@ -2,7 +2,8 @@
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#061522"><meta name="description" content="Terminal holográfico HIDRA Mobile">
 <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="logo-desktop.png" type="image/png">
-<link rel="stylesheet" href="style.css?v=8"><title>HIDRA Mobile 2.6 — Rede Neural sem Zoom</title></head>
+<link rel="stylesheet" href="style.css?v=9"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<title>HIDRA Mobile 2.7 — Rede Neural sem Zoom</title></head>
 <body><main class="app">
 <header class="top"><div><div class="desktop-brand"><img src="logo-desktop.png" class="desktop-logo" alt="Logo original HIDRA Desktop"><div><div class="brand">HIDRA <small>2.0</small></div><div class="subbrand">ASSISTENTE INTELIGENTE</div></div></div></div><span id="connection" class="status">DESCONECTADA</span></header>
 <section class="hero" aria-label="Núcleo da HIDRA">
@@ -15,8 +16,8 @@
 </div>
 <div id="hint" class="hint">Configure a conexão para começar.</div><div class="hero-sub">NÚCLEO DE COMUNICAÇÃO ATIVO</div></section>
 <section id="home" class="screen active">
-<div class="section-title"><span>MÓDULOS DA HIDRA</span><span class="section-index">06 DISPONÍVEIS</span></div>
-<div class="modules">
+<div class="section-title"><span>MÓDULOS DA HIDRA</span><span class="section-index">07 DISPONÍVEIS</span></div>
+<div class="modules"><button class="module" id="gpsTile" type="button"><span class="symbol">⌖</span><span>Localização</span></button>
 <button class="module" data-command="HIDRA, abra o laboratório científico"><span class="symbol">⚗</span><span>Científico</span></button>
 <button class="module" data-command="HIDRA, abra o laboratório atômico"><span class="symbol">⚛</span><span>Atômico</span></button>
 <button class="module" data-command="HIDRA, simule o Sistema Solar"><span class="symbol">◎</span><span>Espacial</span></button>
@@ -43,4 +44,15 @@
 <label>Chave de pareamento<input id="token" type="password" placeholder="Chave exibida no PC"></label>
 <button id="save" type="button">Salvar e conectar</button>
 <p class="tip">O GitHub Pages hospeda somente a interface. Para acessar a HIDRA do PC, configure um servidor HTTPS compatível com a API Mobile. Nunca publique sua chave no repositório.</p></section>
-</main><script src="app.js?v=8" defer></script><script src="neural-core.js?v=8" defer></script></body></html>
+<section id="gpsPanel" class="gps-panel" hidden aria-label="Mapa holográfico da HIDRA">
+<div class="gps-head"><div><span class="gps-kicker">HIDRA / GEO_INTELLIGENCE</span><h2>LOCALIZAÇÃO</h2></div><button id="gpsClose" class="gps-close" aria-label="Fechar mapa">✕</button></div>
+<div id="gpsStatus" class="gps-status" role="status">Aguardando localização…</div>
+<div class="gps-map-shell"><div id="gpsMap" class="gps-map" aria-label="Mapa de localização"></div><div class="gps-grid" aria-hidden="true"></div><div class="gps-corners" aria-hidden="true"></div><span class="gps-tag">◈ GEO / LIVE</span></div>
+<div class="gps-address"><span class="gps-kicker">POSIÇÃO ATUAL</span><div id="gpsAddress">Solicite sua localização para começar.</div><small id="gpsCoords"></small></div>
+<div class="gps-actions"><button type="button" id="gpsRefresh">⌖ Minha localização</button><button type="button" id="gpsCopy">⧉ Copiar endereço</button></div>
+<div class="gps-categories"><span class="gps-kicker">BUSCAR NAS PROXIMIDADES</span><div class="gps-chips">
+<button type="button" data-place="market">Mercados</button><button type="button" data-place="pharmacy">Farmácias</button><button type="button" data-place="bakery">Padarias</button><button type="button" data-place="fuel">Postos</button><button type="button" data-place="restaurant">Restaurantes</button></div></div>
+<div id="gpsResults" class="gps-results" aria-live="polite"></div>
+<div class="gps-foot">Localização aproximada. Mapas e estabelecimentos exigem internet; o GPS pode funcionar sem o Desktop. Dados © OpenStreetMap.</div>
+</section>
+</main><script src="app.js?v=9" defer></script><script src="neural-core.js?v=9" defer></script><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" defer></script><script src="gps.js?v=9" defer></script></body></html>

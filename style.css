@@ -17,3 +17,31 @@
 @keyframes desktop-breathe{0%,100%{transform:scale(.97);opacity:.75}50%{transform:scale(1.04);opacity:1}}
 @media(max-height:740px){.orb-desktop{width:min(100%,225px)!important}}
 @media(prefers-reduced-motion:reduce){.desktop-layer{animation:none!important}}
+
+/* v2.3: limita a cena e impede PNGs absolutos de expandirem a viewport */
+html,body{width:100%;max-width:100%;overflow-x:clip}
+.app{width:100%;max-width:560px;min-width:0;overflow:hidden}
+.hero{min-width:0;max-width:100%;isolation:isolate}
+.orb.orb-desktop{position:relative!important;display:block!important;width:min(78vw,300px)!important;height:min(78vw,300px)!important;max-width:300px!important;max-height:300px!important;aspect-ratio:1/1!important;overflow:hidden!important;contain:layout paint;isolation:isolate;filter:none;margin:12px auto!important}
+.orb.orb-desktop .desktop-layer{position:absolute!important;inset:0!important;display:block!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;transform-origin:center center!important;pointer-events:none}
+.orb.orb-desktop .desktop-aura{position:absolute!important;inset:10%!important}
+@media(max-height:740px){.orb.orb-desktop{width:min(62vw,225px)!important;height:min(62vw,225px)!important}}
+
+/* HIDRA 2.4 — núcleo vivo da 2.2, dentro dos limites estáveis da 2.3 */
+.orb.orb-desktop{overflow:hidden!important;isolation:isolate;contain:layout paint;transform:translateZ(0);background:radial-gradient(circle at center,#23d6f012 0%,#0b394518 35%,transparent 67%)}
+.orb.orb-desktop .desktop-layer{will-change:transform;transform-origin:50% 50%!important}
+.orb.orb-desktop .layer-particles{opacity:.55;animation:desktop-spin 55s linear infinite}
+.orb.orb-desktop .layer-radar{opacity:.78;animation:desktop-spin 24s linear infinite}
+.orb.orb-desktop .layer-outer{opacity:.88;animation:desktop-spin 38s linear infinite}
+.orb.orb-desktop .layer-orbits{opacity:1;animation:desktop-spin 17s linear reverse infinite}
+.orb.orb-desktop .layer-inner{opacity:.95;animation:desktop-spin 25s linear reverse infinite}
+.orb.orb-desktop .layer-core-ring{z-index:3;animation:desktop-spin 12s linear infinite;opacity:.85;filter:drop-shadow(0 0 6px #48e8ff44)}
+.orb.orb-desktop .layer-glow{z-index:4;opacity:.68;animation:desktop-breathe 2.6s ease-in-out infinite}
+.orb.orb-desktop .layer-core{z-index:5;opacity:.85;animation:desktop-breathe 3.2s ease-in-out infinite}
+.hidra-heart{position:absolute;z-index:8;left:50%;top:50%;width:28%;aspect-ratio:1/1;transform:translate(-50%,-50%);display:grid;place-items:center;pointer-events:none;border-radius:50%;background:radial-gradient(circle at 42% 36%,#185d7d 0%,#0a3049 65%,#061d30 100%);border:1.5px solid #91f1ff;box-shadow:0 0 10px #2ad9ffbb,0 0 30px #0fb5e75e,inset 0 0 16px #37d3ee55;animation:hidra-heart-pulse 3.1s ease-in-out infinite}
+.hidra-heart-glow{position:absolute;inset:-16%;border-radius:50%;border:1px solid #5be9ff55;box-shadow:0 0 18px #41d6f044;animation:hidra-heart-halo 3.1s ease-in-out infinite}
+.hidra-heart-letter{position:relative;color:#d5faff;font-family:Arial,sans-serif;font-weight:800;font-size:clamp(32px,10vw,58px);line-height:1;text-shadow:0 0 7px #7feeff,0 0 19px #36c8f7;letter-spacing:-.06em;padding-right:.06em}
+@keyframes hidra-heart-pulse{0%,100%{box-shadow:0 0 10px #2ad9ffbb,0 0 24px #0fb5e744,inset 0 0 14px #37d3ee44}50%{box-shadow:0 0 18px #59edffdd,0 0 42px #0fb5e788,inset 0 0 24px #37d3ee88}}
+@keyframes hidra-heart-halo{0%,100%{opacity:.55;transform:scale(.94)}50%{opacity:1;transform:scale(1.1)}}
+@media(max-height:740px){.hidra-heart-letter{font-size:clamp(27px,9vw,43px)}}
+@media(prefers-reduced-motion:reduce){.orb.orb-desktop .desktop-layer,.hidra-heart,.hidra-heart-glow{animation:none!important}}

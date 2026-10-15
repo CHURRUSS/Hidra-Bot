@@ -55,9 +55,11 @@ async function fetchPlaces(query){
  const servers=[
   'https://overpass-api.de/api/interpreter',
   'https://overpass.kumi.systems/api/interpreter',
-  'https://overpass.nchc.org.tw/api/interpreter'
+  'https://overpass.nchc.org.tw/api/interpreter',
+  'https://overpass.private.coffee/api/interpreter'
  ];
  let lastError=null;
+ const failures=[];
  for(const endpoint of servers){
   const controller=new AbortController();
   const timer=setTimeout(()=>controller.abort(),16000);
@@ -68,10 +70,10 @@ async function fetchPlaces(query){
    const data=await response.json();
    if(!Array.isArray(data.elements))throw new Error('Resposta inesperada');
    return data;
-  }catch(err){lastError=err;console.warn('[HIDRA GPS] Falha na consulta de locais:',endpoint,err.message)}
+  }catch(err){lastError=err;failures.push(new URL(endpoint).hostname+': '+(err.name==='AbortError'?'tempo esgotado':err.message));console.warn('[HIDRA GPS] Falha na consulta de locais:',endpoint,err.message)}
   finally{clearTimeout(timer)}
  }
- throw lastError||new Error('Serviços indisponíveis');
+ throw new Error(failures.join(' | ')||'Serviços indisponíveis');
 }
 async function nearby(category){
  if(!names[category])return;
@@ -80,7 +82,7 @@ async function nearby(category){
  results.replaceChildren();note('Buscando '+names[category]+' nas proximidades…');
  clearMarkers();
  const tags={market:'["shop"~"supermarket|convenience|grocery"]',pharmacy:'["amenity"="pharmacy"]',bakery:'["shop"="bakery"]',fuel:'["amenity"="fuel"]',restaurant:'["amenity"="restaurant"]'};
- const query=`[out:json][timeout:20];(node(around:1500,${point.lat},${point.lon})${tags[category]};way(around:1500,${point.lat},${point.lon})${tags[category]};);out center 35;`;
+ const query=`[out:json][timeout:15];(node${tags[category]}(around:1500,${point.lat},${point.lon});way${tags[category]}(around:1500,${point.lat},${point.lon}););out center 35;`;
  try{
   const data=await fetchPlaces(query);
   const list=(data.elements||[]).map(e=>({lat:e.lat??e.center?.lat,lon:e.lon??e.center?.lon,name:e.tags?.name||'Estabelecimento sem nome',street:e.tags?.['addr:street']||'',number:e.tags?.['addr:housenumber']||''})).filter(e=>Number.isFinite(e.lat)&&Number.isFinite(e.lon));
@@ -98,7 +100,16 @@ async function nearby(category){
    item.append(title,detail,button);results.append(item);
    if(map){const marker=L.circleMarker([e.lat,e.lon],{radius:6,color:'#51d7ef',fillColor:'#14a8d0',fillOpacity:.9}).addTo(map).bindPopup(e.name);markers.push(marker)}
   });
- }catch(e){note('Os serviços de busca de estabelecimentos não responderam. Seu GPS e sua internet podem estar funcionando normalmente. Tente novamente em instantes.')}
+ }catch(e){
+  note('Busca interna indisponível. Você ainda pode procurar '+names[category]+' no mapa externo.');
+  const info=document.createElement('div');info.className='gps-result';
+  const msg=document.createElement('span');msg.textContent='Diagnóstico: '+e.message;
+  const btn=document.createElement('button');btn.textContent='Abrir no Google Maps';btn.type='button';
+  btn.onclick=()=>window.open('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(names[category]+' perto de '+point.lat+','+point.lon),'_blank','noopener,noreferrer');
+  const copy=document.createElement('button');copy.textContent='Copiar diagnóstico';copy.type='button';
+  copy.onclick=()=>navigator.clipboard?.writeText(e.message).then(()=>note('Diagnóstico copiado.')).catch(()=>note('Não foi possível copiar.'));
+  info.append(msg,btn,copy);results.append(info);
+ }
 }
 function distance(a,b,c,d){const rad=Math.PI/180,x=(c-a)*rad,y=(d-b)*rad,h=Math.sin(x/2)**2+Math.cos(a*rad)*Math.cos(c*rad)*Math.sin(y/2)**2;return 12742000*Math.asin(Math.min(1,Math.sqrt(h)))}
 function handle(text){

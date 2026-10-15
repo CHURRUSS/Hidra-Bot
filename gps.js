@@ -49,6 +49,30 @@ function locate(){
  },{enableHighAccuracy:true,timeout:18000,maximumAge:15000});
 }
 function openNoLocate(){panel.hidden=false;document.body.classList.add('gps-open');setTimeout(()=>map?.invalidateSize(),120)}
+// Servidores públicos podem ficar indisponíveis ou limitar requisições.
+// Consultas GET simples evitam preflight CORS; tentamos alternativas sequencialmente.
+async function fetchPlaces(query){
+ const servers=[
+  'https://overpass-api.de/api/interpreter',
+  'https://overpass.kumi.systems/api/interpreter',
+  'https://overpass.nchc.org.tw/api/interpreter'
+ ];
+ let lastError=null;
+ for(const endpoint of servers){
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),16000);
+  try{
+   const url=endpoint+'?data='+encodeURIComponent(query);
+   const response=await fetch(url,{method:'GET',mode:'cors',signal:controller.signal,cache:'no-store',headers:{Accept:'application/json'}});
+   if(!response.ok)throw new Error('HTTP '+response.status);
+   const data=await response.json();
+   if(!Array.isArray(data.elements))throw new Error('Resposta inesperada');
+   return data;
+  }catch(err){lastError=err;console.warn('[HIDRA GPS] Falha na consulta de locais:',endpoint,err.message)}
+  finally{clearTimeout(timer)}
+ }
+ throw lastError||new Error('Serviços indisponíveis');
+}
 async function nearby(category){
  if(!names[category])return;
  lastCategory=category;openNoLocate();
@@ -58,9 +82,7 @@ async function nearby(category){
  const tags={market:'["shop"~"supermarket|convenience|grocery"]',pharmacy:'["amenity"="pharmacy"]',bakery:'["shop"="bakery"]',fuel:'["amenity"="fuel"]',restaurant:'["amenity"="restaurant"]'};
  const query=`[out:json][timeout:20];(node(around:1500,${point.lat},${point.lon})${tags[category]};way(around:1500,${point.lat},${point.lon})${tags[category]};);out center 35;`;
  try{
-  const r=await fetch('https://overpass.kumi.systems/api/interpreter',{method:'POST',body:new URLSearchParams({data:query})});
-  if(!r.ok)throw Error('Serviço de estabelecimentos temporariamente indisponível');
-  const data=await r.json();
+  const data=await fetchPlaces(query);
   const list=(data.elements||[]).map(e=>({lat:e.lat??e.center?.lat,lon:e.lon??e.center?.lon,name:e.tags?.name||'Estabelecimento sem nome',street:e.tags?.['addr:street']||'',number:e.tags?.['addr:housenumber']||''})).filter(e=>Number.isFinite(e.lat)&&Number.isFinite(e.lon));
   list.forEach(e=>e.distance=distance(point.lat,point.lon,e.lat,e.lon));
   list.sort((a,b)=>a.distance-b.distance);
@@ -76,7 +98,7 @@ async function nearby(category){
    item.append(title,detail,button);results.append(item);
    if(map){const marker=L.circleMarker([e.lat,e.lon],{radius:6,color:'#51d7ef',fillColor:'#14a8d0',fillOpacity:.9}).addTo(map).bindPopup(e.name);markers.push(marker)}
   });
- }catch(e){note('Não foi possível consultar os comércios. Verifique a internet e tente novamente.')}
+ }catch(e){note('Os serviços de busca de estabelecimentos não responderam. Seu GPS e sua internet podem estar funcionando normalmente. Tente novamente em instantes.')}
 }
 function distance(a,b,c,d){const rad=Math.PI/180,x=(c-a)*rad,y=(d-b)*rad,h=Math.sin(x/2)**2+Math.cos(a*rad)*Math.cos(c*rad)*Math.sin(y/2)**2;return 12742000*Math.asin(Math.min(1,Math.sqrt(h)))}
 function handle(text){

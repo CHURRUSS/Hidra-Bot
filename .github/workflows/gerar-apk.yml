@@ -1,0 +1,48 @@
+name: Gerar APK HIDRA Mobile
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'app.js'
+      - 'index.html'
+      - 'style.css'
+      - 'gps.js'
+      - 'neural-core.js'
+      - 'mobile-daily.js'
+      - 'sw.js'
+      - '*.png'
+      - '*.svg'
+      - 'package.json'
+      - 'capacitor.config.json'
+      - 'scripts/**'
+      - '.github/workflows/gerar-apk.yml'
+permissions:
+  contents: read
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+      - uses: android-actions/setup-android@v3
+      - name: Instalar dependências
+        run: npm install --no-audit --no-fund
+      - name: Preparar interface
+        run: npm run build:web
+      - name: Criar projeto Android
+        run: npx cap add android
+      - name: Compilar APK de teste
+        working-directory: android
+        run: chmod +x gradlew && ./gradlew assembleDebug --no-daemon
+      - name: Publicar APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: HIDRA-Mobile-APK-Teste
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error

@@ -1,0 +1,6 @@
+{
+  "appId": "com.churruss.hidra.mobile",
+  "appName": "HIDRA Mobile",
+  "webDir": "www",
+  "server": {"androidScheme": "https"}
+}

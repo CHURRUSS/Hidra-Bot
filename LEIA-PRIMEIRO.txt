@@ -1,0 +1,18 @@
+HIDRA Mobile - estrutura inicial para gerar APK via GitHub Actions
+
+1. Adicione estes arquivos ao repositório CHURRUSS/Hidra-Bot, preservando os existentes.
+2. No GitHub, abra Actions > Gerar APK HIDRA Mobile > Run workflow.
+3. Aguarde a compilação e baixe o artefato HIDRA-Mobile-APK-Teste.
+
+IMPORTANTE: Este é um APK de TESTE da interface, NAO uma integracao final com o Samsung.
+O app.js atual usa /mobile/api/health, /message, /result e /tts do Desktop.
+O Samsung tem /status e /memorias; ainda precisa de uma API de conversa e/ou
+um modo hibrido que preserve os comandos Desktop. A conexao HTTP privada via
+Tailscale tambem requer implementacao e validacao no Android.
+
+A compilacao gera um APK DEBUG, com assinatura de desenvolvimento. Para
+atualizacoes de producao, sera necessario definir assinatura estavel e guardar
+sua chave fora do repositorio publico. O workflow pode precisar de ajustes
+se houver mudancas nas ferramentas Android/Capacitor.
+
+Nao adicione tokens secretos, chaves de assinatura ou credenciais ao GitHub publico.

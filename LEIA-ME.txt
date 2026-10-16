@@ -1,0 +1,21 @@
+HIDRA Mobile — complemento para acompanhar Desktop v16
+
+O que inclui
+- Indicador de horário local e saudação conforme o horário.
+- Clima atual com ícone e temperatura (Open-Meteo), mediante configuração voluntária da cidade.
+- Atalhos Resumo do dia e Lembretes, enviados pelo MESMO endpoint existente /mobile/api/.
+- Não altera GPS, animação neural, token ou API de comunicação.
+- O Desktop v16 continua responsável pela saudação vocal e por não repetir o relatório no mesmo dia.
+- O clima do Mobile usa preferência local e não é sincronizado com o Desktop.
+
+Como aplicar
+1. Baixe seu repositório CHURRUSS/Hidra-Bot e extraia os arquivos deste ZIP.
+2. Na pasta onde estão index.html e app.js, execute:
+   python aplicar_atualizacao.py
+   (ou: python aplicar_atualizacao.py CAMINHO_DA_PASTA)
+3. O script adiciona mobile-daily.js e altera apenas index.html e sw.js, salvando backups .bak.
+4. Envie os arquivos modificados ao GitHub e aguarde a publicação no GitHub Pages.
+5. Reabra o PWA. Clique em Configurar clima e informe uma cidade.
+
+Atenção: o GitHub conectado negou permissão de escrita (403). Por isso esta entrega é um pacote local, NÃO uma atualização já publicada.
+O funcionamento em dispositivo físico precisa de teste. Não publica chave de conexão no GitHub.
